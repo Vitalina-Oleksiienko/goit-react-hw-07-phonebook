@@ -1,11 +1,12 @@
 import React from "react";
-import PropTypes from "prop-types";
 import style from "./contacts.module.css";
 
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import { changeFilter } from "../redux/action";
 
-function Filter({ handleChange }) {
+export default function Filter() {
+  const dispatch = useDispatch();
+
   return (
     <>
       <label htmlFor="find" className={style.label}>
@@ -20,19 +21,9 @@ function Filter({ handleChange }) {
         pattern="^[a-zA-Zа-яА-Я]"
         onChange={(e) => {
           e.preventDefault();
-          handleChange(e);
+          dispatch(changeFilter(e.target.value.toLowerCase()));
         }}
       ></input>
     </>
   );
 }
-
-const dispatchProps = (dispatch) => ({
-  handleChange: (e) => dispatch(changeFilter(e.target.value.toLowerCase())),
-});
-
-export default connect(null, dispatchProps)(Filter);
-
-Filter.propTypes = {
-  handleChange: PropTypes.func.isRequired,
-};
