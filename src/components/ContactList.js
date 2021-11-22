@@ -15,7 +15,7 @@ export default function ContactList() {
     <ul className={style.list}>
       {filterContacts.map((el) => (
         <li className={style.listItem} key={el.id}>
-          {el.name}: {el.number}
+          {el.name}: {el.phone}
           <button
             type="button"
             className={style.btnDelete}
