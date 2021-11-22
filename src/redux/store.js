@@ -1,25 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import logger from "redux-logger";
-import { reducer } from "./reducer";
-
-const initData = () => {
-  const contact = localStorage.getItem("contacts");
-  if (contact) {
-    return JSON.parse(contact);
-  } else {
-    return [];
-  }
-};
-
-const preloadState = {
-  contacts: initData(),
-  filter: "",
-};
+import contactSlice, { filterReducer } from "./reducer";
 
 const store = configureStore({
-  reducer,
+  reducer: {
+    contacts: contactSlice,
+    filter: filterReducer,
+  },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
-  preloadedState: preloadState,
   devTools: process.env.NODE_ENV === "development",
 });
 
